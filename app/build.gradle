@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+// 应用Kotlin插件
+apply plugin: 'kotlin-android'
+// 应用Kotlin-extensions插件（用于自动地从XML中注入所有的View到Activity中）
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+    defaultConfig {
+        applicationId "com.meitu.weather"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile "com.android.support:appcompat-v7:$support_version"
+    // 添加kotlin标准库依赖
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    // 添加anko-common库依赖（用来简化一些Android任务的很强大的Kotlin库）
+    compile "org.jetbrains.anko:anko-common:$anko_version"
+    testCompile 'junit:junit:4.12'
+}
