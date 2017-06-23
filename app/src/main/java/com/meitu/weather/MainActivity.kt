@@ -2,42 +2,38 @@ package com.meitu.weather
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.widget.Toast
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import com.meitu.weather.adapter.ForecastListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    /*
+        使用"listof"函数，通过接受一个任何类型的"vararg"(可变长的参数)，并自动推断出结果类型，来创建List集合。
+        类似的有：setof(),arrayListOf(),hashSetOf()
+     */
+    private val items = listOf(
+            "Mon 6/23 - Sunny - 31/17",
+            "Tue 6/24 - Foggy - 21/8",
+            "Wed 6/25 - Cloudy - 22/17",
+            "Thurs 6/26 - Rainy - 18/11",
+            "Fri 6/27 - Foggy - 21/10",
+            "Sat 6/28 - TRAPPED IN WEATHERSTATION - 23/18",
+            "Sun 6/29 - Sunny - 20/7"
+    )
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // 使用Kotlin-extensions插件实现从XML中注入所有的View到Activity中
-        message.text = "Hello Kotlin"// 等同于：message.setText("Hello Kotlin")
-
-        toast("Hi World")
-        toast("Hi World","MyTag")
-    }
-
-    /*
-         使用"fun"关键字定义函数，没有指定返回值时默认返回"Unit"（类似Java的"void"，但是"Unit"是一个对象）
-     */
-    fun add(x: Int, y: Int): Int {
-        return x + y;
-    }
-
-    /*
-         若函数体只有一个表达式且直接返回结果，可以直接使用等号替代。（上一个方法的简写）
-     */
-    fun add(x: Int, y: Int, z: Int): Int = x + y + z
-
-    /*
-        参数默认值：为参数指定默认值，避免了不必要的重载。
-        标识符"$"：
-            使用标识符"$"插入表达式，即模板表达式，实现在静态值和变量的基础上编写复杂的String。
-            若表达式较为复杂，可以使用大括号包裹，例如： ${user.name}
-        "localClassName"：为Kolin在Activity定义的常量，为当前类名
-     */
-    fun toast(message: String, tag:String = localClassName,length: Int = Toast.LENGTH_SHORT) {
-        Toast.makeText(this, "[$tag]$message", length).show()
+        // 使用"as"关键字进行强转
+        val forecastList = findViewById(R.id.forecast_list) as RecyclerView
+        // 指定RecyclerView布局管理器
+        // 对象实例化与Java不同，省略了"new"。此时构造函数仍然会被调用。
+        forecastList.layoutManager = LinearLayoutManager(this)
+        // 设置Adapter
+        forecastList.adapter = ForecastListAdapter(items)
     }
 }

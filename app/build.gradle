@@ -30,6 +30,7 @@ dependencies {
     })
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile "com.android.support:appcompat-v7:$support_version"
+    compile "com.android.support:recyclerview-v7:$support_version"
     // 添加kotlin标准库依赖
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     // 添加anko-common库依赖（用来简化一些Android任务的很强大的Kotlin库）
